@@ -1,0 +1,62 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <form action="/products" method="POST" class="validated-form" novalidate>
+            <div class="mb-3">
+                <label class="form-label" for="name">Name:</label>
+                <input class="form-control" type="text" name="name" id="name" placeholder="Product Name" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="img" class="form-label">Image URL</label>
+                <input class="form-control" type="text" name="img" id="img" placeholder="Product Image URL" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+        
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">$</span>
+                    <input type="number" name="price" class="form-control" placeholder="Price" aria-label="Price" aria-describedby="basic-addon1" step="0.01" min="0" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>  
+            </div>
+        
+            <div class="mb-3">
+                <label class="form-label" for="desc">Description</label>
+                <textarea class="form-control" name="desc" id="desc" rows="5" required></textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="categories" class="form-label">Categories</label>
+                <select multiple class="form-select" id="categories" name="categories[]">
+                    <!-- Example options; populate dynamically if needed -->
+                    <option value="Electronics">Electronics</option>
+                    <option value="Books">Books</option>
+                    <option value="Clothes">Clothes</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Women">Women</option>
+                    <option value="Men">Men</option>
+                    <option value="Indian">Indian</option>
+                    <option value="Western">Western</option>
+                    <!-- Add more categories as needed -->
+                </select>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-sm btn-success">Add</button>
+        </form>
+    </div>
+</div>

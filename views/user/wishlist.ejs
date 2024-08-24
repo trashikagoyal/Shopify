@@ -1,0 +1,40 @@
+<% layout('layouts/boilerplate') -%>
+
+<section class="container">
+    <h4 class="display-4">My Wishlist</h4>
+  
+    <button id="shareWishlistBtn" class="btn btn-success mb-4">
+        <i class="fab fa-whatsapp"></i> Share Wishlist on WhatsApp
+    </button>
+
+    <div class="row products">
+        <% if(user.wishList.length) { %>
+            <% for(let product of user.wishList) { %>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="card shadow-sm mx-auto position-relative" style="width: 20rem;">
+                        <img src="<%= product.img %>" class="card-img-top" alt="item image">
+                        <div class="card-body">
+                            <h5 class="card-title d-flex justify-content-between align-items-center">
+                                <span><%= product.name %></span> 
+                                <span class="btn like-btn" product-id="<%= product._id %>">
+                                    <i class="fas fa-heart"></i>
+                                </span>
+                            </h5>
+                            <p class="card-text fw-light"><%= product.desc %></p>
+                            <h6 class="card-title">
+                                <span class="fw-lighter fs-6 text-decoration-line-through">Rs.<%= product.price * 2 %></span> 
+                                Rs.<%= product.price %> 
+                                <span class="fw-light fs-6 text-warning">(50% OFF)</span> 
+                            </h6>
+                            <a href="/products/<%= product._id %>" class="btn btn-sm show-btn">View Now</a>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        <% } else { %>
+            <p class="text-muted">Your wishlist is empty.</p>
+        <% } %>
+    </div>
+</section>
+
+<script src="/js/wishlist.js"></script>

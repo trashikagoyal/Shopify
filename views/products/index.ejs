@@ -1,0 +1,90 @@
+<% layout('layouts/boilerplate') -%>
+
+<section class="container">
+  <%- include('../partials/flash') %> 
+  
+  <section id="heading"> 
+    <h4 class="display-4"><i class="fab fa-shopify" style="margin-right: 20px;"></i>Shopping-Cart</h4>
+  </section>
+  
+  <div class="row">
+    <!-- Filter Section -->
+    <div class="col-lg-3">
+      <form id="filterForm" method="GET" action="/products">
+        <!-- Categories Filter -->
+        <div class="mb-3">
+          <label for="categories" class="form-label">Categories</label>
+          <select multiple class="form-select" id="categories" name="categories">
+            <% allCategories.forEach(category => { %>
+              <option value="<%= category %>"><%= category %></option>
+            <% }) %>
+          </select>
+        </div>
+        <!-- Min Price Filter -->
+        <div class="mb-3">
+          <label for="minPrice" class="form-label">Min Price</label>
+          <input type="number" class="form-control" id="minPrice" name="minPrice" min="0">
+        </div>
+        <!-- Max Price Filter -->
+        <div class="mb-3">
+          <label for="maxPrice" class="form-label">Max Price</label>
+          <input type="number" class="form-control" id="maxPrice" name="maxPrice" min="0">
+        </div>
+        <!-- Rating Filter -->
+        <div class="mb-3">
+          <label for="rating" class="form-label">Rating</label>
+          <select class="form-select" id="rating" name="rating">
+            <option value="">All Ratings</option>
+            <option value="1">1 star & above</option>
+            <option value="2">2 stars & above</option>
+            <option value="3">3 stars & above</option>
+            <option value="4">4 stars & above</option>
+            <option value="5">5 stars</option>
+          </select>
+        </div>
+        <!-- Filter Button -->
+        <button type="submit" class="btn btn-primary">Filter</button>
+      </form>
+    </div>
+    
+    <!-- Products Section -->
+    <div class="col-lg-9">
+      <div class="row products">
+        <% for(let product of products) { %>
+          <div class="col-lg-4 col-md-6 mb-3">
+            <div class="card shadow-sm mx-auto position-relative" style="width: 20rem;">
+              <img src=<%= product.img %> class="card-img-top" alt="item image">
+              <span class="badge rounded-pill bg-light text-dark w-25 position-absolute translate-middle-y" style="top:41%;left:5%"><%= product.avgRating %> &star; | <%= product.reviews.length %></span>
+              <div class="card-body">
+                <h5 class="card-title d-flex justify-content-between align-items-center">
+                  <span><%= product.name %></span> 
+                  <span class="btn like-btn" product-id="<%= product._id %>">
+                    <% if(currentUser && currentUser.wishList.includes(product._id)) { %>
+                      <i class="fas fa-heart"></i>
+                    <% } else { %>
+                      <i class="far fa-heart"></i>
+                    <% } %>
+                  </span>
+                </h5>
+                <p class="card-text fw-light"><%= product.desc %></p>
+                <% if(product.reviews.length) { %>
+                  <p class="text-muted"><%= product.reviews.length %> reviews</p>
+                <% } else { %>
+                  <p class="text-muted">No reviews</p>
+                <% } %> 
+                <h6 class="card-title">
+                  <span class="fw-lighter fs-6 text-decoration-line-through">Rs.<%= product.price * 2 %></span> 
+                  Rs.<%= product.price %> 
+                  <span class="fw-light fs-6 text-warning">(50% OFF)</span> 
+                </h6>
+                <a href="/products/<%= product._id %>" class="btn btn-sm show-btn">View Now</a>
+              </div>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="/js/common.js"></script>
